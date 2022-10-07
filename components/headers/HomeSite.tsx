@@ -25,6 +25,7 @@ import {
 } from 'react-icons/ai';
 import { BsFillCameraVideoFill } from 'react-icons/bs';
 // import { Logo } from "@choc-ui/logo";
+import LinkNext from 'next/link';
 
 export default function HomeSiteHeader() {
   const mobileNav = useDisclosure();
@@ -72,11 +73,11 @@ export default function HomeSiteHeader() {
       _focus={{
         boxShadow: 'outline',
       }}
-      ml={5}>
-      <Icon as={FaHeart} w='4' h='4' color='red.500' mr='2' />
+      ml={4}>
       <Box as='strong' lineHeight='inherit' fontWeight='semibold'>
-        Sponsor
+        Buy me a coffee
       </Box>
+      <Icon as={FaHeart} w='4' h='4' color='red.500' ml='2' />
     </Box>
   );
   const MobileNavContent = (
@@ -128,7 +129,7 @@ export default function HomeSiteHeader() {
         <chakra.div h='4.5rem' mx='auto' maxW='1200px'>
           <Flex w='full' h='full' px='6' align='center' justify='space-between'>
             <Flex align='center'>
-              <Link href='/'>
+              <Link href='/' style={{ textDecoration: 'none' }}>
                 <HStack>
                   <chakra.h1 fontSize={{ base: 'xl', md: '2xl' }}>
                     <Text
@@ -153,8 +154,8 @@ export default function HomeSiteHeader() {
               <HStack spacing='5' display={{ base: 'none', md: 'flex' }}>
                 <Link
                   isExternal
-                  aria-label='Go to Choc UI GitHub page'
-                  href='https://github.com/anubra266/choc-ui'>
+                  aria-label='Go to Inilink GitHub page'
+                  href='https://github.com/gugunm/inilink.git'>
                   <Icon
                     as={AiFillGithub}
                     display='block'
@@ -165,7 +166,18 @@ export default function HomeSiteHeader() {
                   />
                 </Link>
               </HStack>
-              <IconButton
+              <LinkNext href='/signin'>
+                <a>
+                  <Button
+                    ml={{ base: '0', md: '4' }}
+                    colorScheme='brand'
+                    variant='ghost'
+                    size='sm'>
+                    Sign in
+                  </Button>
+                </a>
+              </LinkNext>
+              {/* <IconButton
                 size='md'
                 fontSize='lg'
                 aria-label={`Switch to ${text} mode`}
@@ -174,7 +186,7 @@ export default function HomeSiteHeader() {
                 ml={{ base: '0', md: '3' }}
                 onClick={toggleMode}
                 icon={<SwitchIcon />}
-              />
+              /> */}
               {SponsorButton}
               <IconButton
                 display={{ base: 'flex', md: 'none' }}
