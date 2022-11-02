@@ -174,8 +174,8 @@ const ExamplePageLink: NextPage = () => {
           <List spacing={3} w='full'>
             {data.map(({ title, url }) => {
               return (
-                <ListItem>
-                  <RenderSingleLink key={title} title={title} url={url} />
+                <ListItem key={title}>
+                  <RenderSingleLink title={title} url={url} />
                 </ListItem>
               );
             })}
