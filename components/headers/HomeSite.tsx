@@ -49,8 +49,8 @@ export default function HomeSiteHeader() {
       display={{ base: 'none', md: 'flex' }}
       alignItems='center'
       as='a'
-      aria-label='Sponsor Choc UI on Open Collective'
-      href={''}
+      aria-label='Buy a coffee for creator'
+      href={'https://trakteer.id/gugunm/'}
       target='_blank'
       rel='noopener noreferrer'
       bg='gray.50'
@@ -166,7 +166,7 @@ export default function HomeSiteHeader() {
                   />
                 </Link>
               </HStack>
-              <LinkNext href='/signin'>
+              <LinkNext href='/auth/signin'>
                 <a>
                   <Button
                     ml={{ base: '0', md: '4' }}

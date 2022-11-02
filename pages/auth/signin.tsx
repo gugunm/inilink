@@ -19,8 +19,12 @@ import {
 import LinkNext from 'next/link';
 
 import { ArrowBackIcon } from '@chakra-ui/icons';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 export default function App() {
+  const { data: session, status } = useSession();
+  const loading = status === 'loading';
+
   return (
     <SimpleGrid
       columns={{ base: 1, md: 2 }}
@@ -115,6 +119,7 @@ export default function App() {
             </InputRightElement>
           </InputGroup> */}
         <Button
+          as='a'
           w={{
             base: 'full',
             sm: 'auto',
@@ -127,7 +132,9 @@ export default function App() {
             base: 2,
             sm: 0,
           }}
-          leftIcon={<FcGoogle />}>
+          leftIcon={<FcGoogle />}
+          // href={`/api/auth/signin`}
+          onClick={() => signIn('google', { callbackUrl: '/dashboard' })}>
           <Center>
             <Text>Sign in with Google</Text>
           </Center>
@@ -146,7 +153,7 @@ export default function App() {
       </Flex>
       <Box>
         <Image
-          src='login-bg.jpg'
+          src='../login-bg.jpg'
           // alt='3 women looking at a laptop'
           fit='cover'
           w='full'
