@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-
+import axios from 'axios';
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export default NextAuth({
@@ -70,7 +70,25 @@ export default NextAuth({
   // when an action is performed.
   // https://next-auth.js.org/configuration/callbacks
   callbacks: {
-    // async signIn({ user, account, profile, email, credentials }) { return true },
+    async signIn({ user, account, profile }: any) {
+      console.log('--> Payload SIGNIN : ');
+      console.log(user);
+
+      const response = await axios.post(`${process.env.NEXT_API}/user/create`, {
+        name: user?.name,
+        email: user?.email,
+      });
+
+      console.log('--> Response Insert User : ');
+      console.log(response);
+
+      if (response.status == 201 || response.status == 200) {
+        return true;
+      } else {
+        console.log('--> failed insert data to table user');
+        return false;
+      }
+    },
     // async redirect({ url, baseUrl }) { return baseUrl },
     // async session({ session, token, user }) { return session },
     // async jwt({ token, user, account, profile, isNewUser }) { return token }

@@ -134,7 +134,9 @@ export default function App() {
           }}
           leftIcon={<FcGoogle />}
           // href={`/api/auth/signin`}
-          onClick={() => signIn('google', { callbackUrl: '/dashboard' })}>
+          onClick={() => {
+            return signIn('google', { callbackUrl: '/dashboard' });
+          }}>
           <Center>
             <Text>Sign in with Google</Text>
           </Center>

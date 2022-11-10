@@ -22,6 +22,8 @@ import { LinkIcon, CopyIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 import { url } from 'inspector';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
+import LinkNext from 'next/link';
+
 export default function CardItem({ data }: any) {
   return (
     <Flex
@@ -82,9 +84,11 @@ export default function CardItem({ data }: any) {
                   Actions
                 </chakra.p>
                 <HStack gap={1}>
-                  <Button colorScheme='teal' size='xs' variant='outline'>
-                    Links
-                  </Button>
+                  <LinkNext href={`/pages/${data.id}`} passHref legacyBehavior>
+                    <Button colorScheme='teal' size='xs' variant='outline'>
+                      Links
+                    </Button>
+                  </LinkNext>
                   <Button colorScheme='telegram' size='xs' variant='outline'>
                     Edit
                   </Button>

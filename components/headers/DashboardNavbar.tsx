@@ -83,7 +83,7 @@ export default function LayoutDashboard({ children }: Props) {
                   icon={<AiOutlineMenu />}
                   onClick={mobileNav.onOpen}
                 />
-                <VStack
+                {/* <VStack
                   pos='absolute'
                   top={0}
                   left={0}
@@ -118,7 +118,7 @@ export default function LayoutDashboard({ children }: Props) {
                     leftIcon={<BsFillCameraVideoFill />}>
                     Videos
                   </Button>
-                </VStack>
+                </VStack> */}
               </Box>
               <chakra.h1
                 fontSize={{ base: 'xl', md: '2xl' }}
@@ -202,7 +202,7 @@ export default function LayoutDashboard({ children }: Props) {
                 m={0}
                 _focus={{ boxShadow: 'none' }}
                 onFocus={() => router.push('/dashboard')}>
-                Links
+                Pages
               </Tab>
               <Tab
                 py={4}
