@@ -45,6 +45,7 @@ export default function Links() {
   const pid = router.query.pid;
   const toast = useToast();
   const { data: session, status } = useSession();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [dataLinks, setDataLinks] = useState<DataLink | []>([]);
   const [dataPage, setDataPage] = useState<DataPage | undefined>(undefined);
@@ -124,7 +125,6 @@ export default function Links() {
     return <p>Access Denied</p>;
   }
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const handleClickLink = (link: any) => {
     setLinkToEdit(link);
     onOpen();
