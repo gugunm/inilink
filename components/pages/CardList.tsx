@@ -15,7 +15,7 @@ export default function CardList() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_API}/pages/${session?.user?.email}`)
+      .get(`${process.env.NEXT_PUBLIC_API}/pages/${session?.user?.email}`)
       .then((response) => response.data)
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((result) => setDataPages(result.data.pages))

@@ -150,7 +150,9 @@ const PageLink: NextPage = () => {
       return;
     } else {
       axios
-        .get(`${process.env.NEXT_API}/links/pname/${router?.query?.pname}`)
+        .get(
+          `${process.env.NEXT_PUBLIC_API}/links/pname/${router?.query?.pname}`
+        )
         .then((response) => response.data)
         .then((result) => {
           setDataPage(result.data);

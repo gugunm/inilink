@@ -14,6 +14,7 @@ import {
   Link,
   List,
   ListItem,
+  useDisclosure,
   useToast,
 } from '@chakra-ui/react';
 import LayoutDashboard from '../../components/headers/DashboardNavbar';
@@ -23,6 +24,7 @@ import { SmallAddIcon } from '@chakra-ui/icons';
 import CardItem from '../../components/pages/CardItem';
 
 import NextLink from 'next/link';
+import LinkDrawer from '../../components/drawer/LinkDrawer';
 
 type DataPage = {
   title: string;
@@ -50,9 +52,11 @@ export default function Links() {
     url: '',
   });
 
+  const [linkToEdit, setLinkToEdit] = useState({});
+
   const fetchData = () => {
     axios
-      .get(`${process.env.NEXT_API}/links/${pid}`)
+      .get(`${process.env.NEXT_PUBLIC_API}/links/${pid}`)
       .then((response) => response.data)
       .then((result) => {
         setDataPage(result.data);
@@ -77,26 +81,35 @@ export default function Links() {
     // console.log('--> Data to submit ');
     // console.log({ ...formData, link_title, page_id: pid });
 
-    axios
-      .post('/api/links/create', { ...formData, link_title, page_id: pid })
-      .then(function (response) {
-        // console.log(response);
-        toast({
-          title: 'Link Creeated',
-          description: "We've created your new link",
-          status: 'success',
+    formData.url != ''
+      ? axios
+          .post('/api/links/create', { ...formData, link_title, page_id: pid })
+          .then(function (response) {
+            // console.log(response);
+            toast({
+              title: 'Link Creeated',
+              description: "We've created your new link",
+              status: 'success',
+              variant: 'subtle',
+              duration: 3000,
+              isClosable: true,
+            });
+            setFormData({
+              url: '',
+            });
+            fetchData();
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+      : toast({
+          title: 'Failed to save',
+          description: 'The link is empty',
+          status: 'warning',
           variant: 'subtle',
           duration: 3000,
           isClosable: true,
         });
-        setFormData({
-          url: '',
-        });
-        fetchData();
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   };
 
   const handleChange = (event: any) => {
@@ -110,6 +123,12 @@ export default function Links() {
   if (status === 'unauthenticated') {
     return <p>Access Denied</p>;
   }
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const handleClickLink = (link: any) => {
+    setLinkToEdit(link);
+    onOpen();
+  };
 
   return (
     <Flex direction='column' pt={8} px={8} alignItems='center'>
@@ -178,10 +197,12 @@ export default function Links() {
           {dataLinks?.map((link: any) => {
             return (
               <ListItem
+                cursor='pointer'
                 key={link.link_title}
                 bg='gray.100'
                 p={5}
-                borderRadius='xl'>
+                borderRadius='xl'
+                onClick={() => handleClickLink(link)}>
                 <chakra.h3 mb={2}>{link?.link_title}</chakra.h3>
                 <chakra.p color='teal.500'>{link?.url}</chakra.p>
                 {/* <CardItem data={item} /> */}
@@ -190,6 +211,7 @@ export default function Links() {
           })}
         </List>
       </Box>
+      <LinkDrawer isOpen={isOpen} onClose={onClose} data={linkToEdit} />
     </Flex>
   );
 }

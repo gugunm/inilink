@@ -74,10 +74,13 @@ export default NextAuth({
       console.log('--> Payload SIGNIN : ');
       console.log(user);
 
-      const response = await axios.post(`${process.env.NEXT_API}/user/create`, {
-        name: user?.name,
-        email: user?.email,
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/user/create`,
+        {
+          name: user?.name,
+          email: user?.email,
+        }
+      );
 
       console.log('--> Response Insert User : ');
       console.log(response);

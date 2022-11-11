@@ -27,7 +27,10 @@ import { BsFillCameraVideoFill } from 'react-icons/bs';
 // import { Logo } from "@choc-ui/logo";
 import LinkNext from 'next/link';
 
+import { useSession } from 'next-auth/react';
+
 export default function HomeSiteHeader() {
+  const { data: session, status } = useSession();
   const mobileNav = useDisclosure();
 
   const { toggleColorMode: toggleMode } = useColorMode();
@@ -43,6 +46,10 @@ export default function HomeSiteHeader() {
   React.useEffect(() => {
     return scrollY.onChange(() => setY(scrollY.get()));
   }, [scrollY]);
+
+  if (status === 'loading') {
+    return <p>Loading...</p>;
+  }
 
   const SponsorButton = (
     <Box
@@ -145,39 +152,48 @@ export default function HomeSiteHeader() {
               </Link>
             </Flex>
 
-            <Flex
-              justify='flex-end'
-              w='full'
-              maxW='824px'
-              align='center'
-              color='gray.400'>
-              <HStack spacing='5' display={{ base: 'none', md: 'flex' }}>
-                <Link
-                  isExternal
-                  aria-label='Go to Inilink GitHub page'
-                  href='https://github.com/gugunm/inilink.git'>
-                  <Icon
-                    as={AiFillGithub}
-                    display='block'
-                    transition='color 0.2s'
-                    w='5'
-                    h='5'
-                    _hover={{ color: 'gray.600' }}
-                  />
-                </Link>
-              </HStack>
-              <LinkNext href='/auth/signin'>
+            {status != 'unauthenticated' ? (
+              <LinkNext href='/dashboard'>
                 <a>
-                  <Button
-                    ml={{ base: '0', md: '4' }}
-                    colorScheme='brand'
-                    variant='ghost'
-                    size='sm'>
-                    Sign in
+                  <Button colorScheme='brand' variant='outline' size='sm'>
+                    Dashbaord
                   </Button>
                 </a>
               </LinkNext>
-              {/* <IconButton
+            ) : (
+              <Flex
+                justify='flex-end'
+                w='full'
+                maxW='824px'
+                align='center'
+                color='gray.400'>
+                <HStack spacing='5' display={{ base: 'none', md: 'flex' }}>
+                  <Link
+                    isExternal
+                    aria-label='Go to Inilink GitHub page'
+                    href='https://github.com/gugunm/inilink.git'>
+                    <Icon
+                      as={AiFillGithub}
+                      display='block'
+                      transition='color 0.2s'
+                      w='5'
+                      h='5'
+                      _hover={{ color: 'gray.600' }}
+                    />
+                  </Link>
+                </HStack>
+                <LinkNext href='/auth/signin'>
+                  <a>
+                    <Button
+                      ml={{ base: '0', md: '4' }}
+                      colorScheme='brand'
+                      variant='ghost'
+                      size='sm'>
+                      Sign in
+                    </Button>
+                  </a>
+                </LinkNext>
+                {/* <IconButton
                 size='md'
                 fontSize='lg'
                 aria-label={`Switch to ${text} mode`}
@@ -187,18 +203,19 @@ export default function HomeSiteHeader() {
                 onClick={toggleMode}
                 icon={<SwitchIcon />}
               /> */}
-              {SponsorButton}
-              <IconButton
-                display={{ base: 'flex', md: 'none' }}
-                aria-label='Open menu'
-                fontSize='20px'
-                color='gray.800'
-                _dark={{ color: 'inherit' }}
-                variant='ghost'
-                icon={<AiOutlineMenu />}
-                onClick={mobileNav.onOpen}
-              />
-            </Flex>
+                {SponsorButton}
+                <IconButton
+                  display={{ base: 'flex', md: 'none' }}
+                  aria-label='Open menu'
+                  fontSize='20px'
+                  color='gray.800'
+                  _dark={{ color: 'inherit' }}
+                  variant='ghost'
+                  icon={<AiOutlineMenu />}
+                  onClick={mobileNav.onOpen}
+                />
+              </Flex>
+            )}
           </Flex>
           {MobileNavContent}
         </chakra.div>
