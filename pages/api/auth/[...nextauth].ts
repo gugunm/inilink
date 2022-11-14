@@ -71,26 +71,27 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/callbacks
   callbacks: {
     async signIn({ user, account, profile }: any) {
-      console.log('--> Payload SIGNIN : ');
-      console.log(user);
+      return true;
+      // console.log('--> Payload SIGNIN : ');
+      // console.log(user);
 
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/user/create`,
-        {
-          name: user?.name,
-          email: user?.email,
-        }
-      );
+      // const response = await axios.post(
+      //   `${process.env.NEXT_PUBLIC_API}/user/create`,
+      //   {
+      //     name: user?.name,
+      //     email: user?.email,
+      //   }
+      // );
 
-      console.log('--> Response Insert User : ');
-      console.log(response);
+      // console.log('--> Response Insert User : ');
+      // console.log(response);
 
-      if (response.status == 201 || response.status == 200) {
-        return true;
-      } else {
-        console.log('--> failed insert data to table user');
-        return false;
-      }
+      // if (response.status == 201 || response.status == 200) {
+      //   return true;
+      // } else {
+      //   console.log('--> failed insert data to table user');
+      //   return false;
+      // }
     },
     // async redirect({ url, baseUrl }) { return baseUrl },
     // async session({ session, token, user }) { return session },
