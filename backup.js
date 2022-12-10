@@ -1,0 +1,11 @@
+NEXTAUTH_SECRET="db90K+Mq94P3a3dHHC7ZAoeDkDchYTKthClbHo9t//0="
+NEXTAUTH_URL="https://inilink.fly.dev"
+NEXT_PUBLIC_API="https://inilink.fly.dev/api"
+GOOGLE_ID="108842002316-g5j4qdk4oiacn13tlq8c8h4sh104c9jl.apps.googleusercontent.com"
+GOOGLE_SECRET="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"
+
+ARG NEXTAUTH_SECRET="db90K+Mq94P3a3dHHC7ZAoeDkDchYTKthClbHo9t//0="
+ARG NEXTAUTH_URL="https://inilink.fly.dev"
+ARG NEXT_PUBLIC_API="https://inilink.fly.dev/api"
+ARG GOOGLE_ID="108842002316-g5j4qdk4oiacn13tlq8c8h4sh104c9jl.apps.googleusercontent.com"
+ARG GOOGLE_SECRET="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"
